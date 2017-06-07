@@ -5,9 +5,6 @@ public class Lab01{
     //first search method 
 
     public static void findByBruteForce(String fileOne, String fileTwo){
- 
-
-        System.out.println("The method findByBruteFore found the following match(es):");
 
         Scanner x;
         Scanner y;
@@ -28,9 +25,21 @@ public class Lab01{
                 listTwo.add(y.next());
             }
 
-            /*for(int t = 0; t<listTwo.size(); t++){
+            System.out.println(fileOne + " contains:");
+            for(int v = 0; v<listOne.size(); v++){
+                System.out.println(listOne.get(v));
+            }
+
+            System.out.println();
+    
+
+            System.out.println(fileTwo + " contains: ");
+            for(int t = 0; t<listTwo.size(); t++){
                 System.out.println(listTwo.get(t));
-            }*/
+            }
+            System.out.println();
+
+            System.out.println("The method findByBruteForce found the following match(es):");
 
 
             for(int i = 0; i<listOne.size();i++){
