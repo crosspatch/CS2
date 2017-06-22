@@ -19,8 +19,7 @@ public class Hw01{
             numOfOperations = Integer.parseInt(args[0]);
             filename = args[1];
             file = new File(filename);
-            System.out.println("The integer given is " +numOfOperations);
-            System.out.println("The name of the file given is " + filename);
+            System.out.println(filename + " contains:");
         }
         else{
             System.out.println("Nothing there");
@@ -28,20 +27,35 @@ public class Hw01{
         }
 
         try{
-            int counter = 0;
             Scanner input = new Scanner(file);
-            while(input.hasNext()){
+            while(input.hasNextLine()){
                 String letter = input.next();
-                String name = input.next();
-                System.out.printf("The current letter is %s and the current name is %s%n",letter,name);
-                counter++;
+                if(input.hasNext()){
+                    String name = input.next();
+                    switch (letter){
+                        case "i": hashInsert(name);
+                                break;
+                        case "d": hashDelete(name);
+                                break;
+                        case "s": hashSearch(name);
+                                break;
+                        case "p": hashPrint();
+                                break;
+                        case "q": hashQuit();
+                        default: System.out.println("Try again");
+                                break;
+                    }
+                    System.out.printf("%s %s%n", letter, name);
+                }
+                else{
+                    System.out.printf("%s%n", letter);
+                    return;
+                }
             }
-            System.out.println(counter);
         }
         catch(FileNotFoundException e){
             System.out.println("FIle not found");
         }
-
 
     }
 
@@ -55,27 +69,29 @@ public class Hw01{
     }
 
     //Method for insertion
-   /* public static void hashInsert(){
+    public static void hashInsert(String Name){
 
     }
 
     //Method for Deletion
-    public static void hashDelete(){
+    public static void hashDelete(String Name){
 
     }
     
     //Method for Searching through the Table
-    public static void hashSearch(){
+    public static void hashSearch(String Name){
 
     }
 
     //Method for Printing items
     public static void hashPrint(){
+        System.out.println("The Hash Table contains: ");
+
 
     }
 
     //Method for quitting from current choice
     public static void hashQuit(){
 
-    }*/
+    }
 }
