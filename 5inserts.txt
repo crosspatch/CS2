@@ -1,0 +1,6 @@
+i homer
+i marge
+i nelson
+i glorida
+i duffman
+p
