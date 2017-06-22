@@ -1,4 +1,4 @@
-//CS2 HW 1
+////CS2 HW 1
 //
 
 import java.io.*;
