@@ -1,5 +1,8 @@
 //CS2 HW 1
+<<<<<<< HEAD
 //
+=======
+>>>>>>> b7e10ba7ae236033de83f27c645a8d36049c3f9f
 
 import java.io.*;
 import java.util.Scanner;
@@ -7,7 +10,11 @@ import java.lang.*;
 
 public class Hw01{
 
+<<<<<<< HEAD
     static Node[] hashTable;
+=======
+    Node[] hashTable;
+>>>>>>> b7e10ba7ae236033de83f27c645a8d36049c3f9f
     //main method
     public static void main(String[] args){
 
@@ -88,7 +95,11 @@ public class Hw01{
 
     //Method for insertion
     public static void hashInsert(String Name){
+<<<<<<< HEAD
         int key = keyGenerator(Name, hashTable.length);
+=======
+        int key = keyGenerator(Name, hashTable.length());
+>>>>>>> b7e10ba7ae236033de83f27c645a8d36049c3f9f
         if(hashTable[key] != null){
             //there is a list
             
@@ -115,7 +126,11 @@ public class Hw01{
     //Method for Deletion
     public static void hashDelete(String Name){
         
+<<<<<<< HEAD
         int key = keyGenerator(Name, hashTable.length);
+=======
+        int key = keyGenerator(Name, hashTable.length());
+>>>>>>> b7e10ba7ae236033de83f27c645a8d36049c3f9f
         if(hashTable[key] == null){
             System.out.println("The word is not in the list");
             return;
@@ -156,7 +171,11 @@ public class Hw01{
     //Method for Searching through the Table
     public static void hashSearch(String Name){
         
+<<<<<<< HEAD
         int key = keyGenerator(Name, hashTable.length);
+=======
+        int key = keyGenerator(Name, hashTable.length());
+>>>>>>> b7e10ba7ae236033de83f27c645a8d36049c3f9f
         //if key isn't being used
         if(hashTable[key] == null){
             System.out.println("The word is not in the list");
@@ -186,7 +205,11 @@ public class Hw01{
     //Method for Printing items
     public static void hashPrint(){
         System.out.println("The Hash Table contains: ");
+<<<<<<< HEAD
         for(int i = 0;i < hashTable.length;i++){
+=======
+        for(int i = 0;i < hashTable.length();i++){
+>>>>>>> b7e10ba7ae236033de83f27c645a8d36049c3f9f
             
             System.out.printf("%d. List (first->last): ", i);
             if(hashTable[i]==null){
@@ -207,6 +230,7 @@ public class Hw01{
 
 
     }
+<<<<<<< HEAD
 }    
 class Node{
         
@@ -219,3 +243,18 @@ class Node{
 }
     
 
+=======
+    
+    public class Node{
+        
+        String data;
+        Node link = null; 
+        
+        public Node(String Name){
+            data = Name;
+        }
+    
+    }
+    
+}
+>>>>>>> b7e10ba7ae236033de83f27c645a8d36049c3f9f
