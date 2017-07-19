@@ -32,17 +32,23 @@ public class SkipList{
         return firstNode;
     }
 
-    public void insert(){
+    public void insert(int value,SkipNodes c){
+        
+        //make node to insert
+        SkipNodes Node = new SkipNodes(value,1,null, null, null, null);
+        //call search to search for the right spot
+        search(value, 'i',Node);
     }
 
-    public void promote(){
+    public int promote(){
 
+        return(); 
     }
 
     public void delete(){
     }
 
-    public boolean search(int goal,char option){
+    public boolean search(int goal,char option ){
         boolean found=false;
         //have a current Node
         SkipNodes curr = new SkipNodes(firstNode.data, firstNode.level, firstNode.next, firstNode.previous, firstNode.up, firstNode.down);
@@ -68,7 +74,20 @@ public class SkipList{
                         //on bottom level and number not found
                         switch(option){
                             case 'i':
-                                insert();
+                                int i = 1;
+                                SkipNodes Node = new SkipNodes(goal,i, curr.right,curr,null, null);
+                                int p = promote();
+                                while(p == 1){
+
+                                    i++;
+                                    SkipNodes Node = new SkipNodes(goal, i, curr.up.right, curr.up,null,curr.right);
+                                    curr.right.up = Node;
+                                    curr.up.right.left = Node;
+                                    curr.up.right = Node;
+                                    //may need to use recursion?
+                                    p = promote();
+                                }
+                                return;
                                 break;
                             case 's':
                                 return found;
