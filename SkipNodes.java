@@ -1,4 +1,17 @@
 //Nodes for Skip List
+//This will be the class for the individual Nodes for the list
+//IN the train analogy, this will be the individual stops on the expressway and the normal line
+//They will each have an integer in them as their data and four pointers
+///////////////////////////////////////////////////////////////////////////////////////////
+//             null             null        null        null             null            //
+//              |                |           |           |                |              // 
+//              |                |           |           |                |              //
+//null<-- [Sentinel Node]--><--[Node]--><--[Node]--><--[Node]--><--[Sentinel Node]-->null//
+//              |                |           |           |                |              //
+//              |                |           |           |                |              //
+//             null             null        null        null             null            //
+///////////////////////////////////////////////////////////////////////////////////////////
+
 
 public class SkipNodes{
 
