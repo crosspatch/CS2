@@ -29,8 +29,8 @@ public class SkipList{
     //////////////////////////////////////////////////////
     public SkipList(){
         listHeight = 1;                                             //the list always begins with one level
-        head = new SkipNodes(-100000,1,lastNode,null,null,null);    //the head pointer now points to the -inf sentinel
-        tail = new SkipNodes(100000,1,null, firstNode, null, null); //the tail pointer now points to the +inf sentinel
+        head = new SkipNodes(Integer.MIN_VALUE,1,lastNode,null,null,null);    //the head pointer now points to the -inf sentinel
+        tail = new SkipNodes(Integer.MAX_VALUE,1,null, firstNode, null, null); //the tail pointer now points to the +inf sentinel
     }
 
     //setter for level
@@ -53,25 +53,45 @@ public class SkipList{
         return head;
     }
 
-    public void insert(int value,SkipNodes c){
+    //needs to be done when new sentinels are formed
+    public void setTail(SkipNodes newLast){
+        this.tail = newLst;
+    }
+
+    public void insert(int value,boolean pres){
         
-        //make node to insert
-        SkipNodes Node = new SkipNodes(value,1,null, null, null, null);
         //call search to search for the right spot
-        search(value, 'i',Node);
+        search(value, 'i',pres);
     }
 
-    public int promote(){
+    public int promote(boolean present){
+        //this funtion will be called from the search function
+        //it will need to know if the command line has a value in the 2nd slot
+        //if it does, seed with time,if it does not have an input, seed with 42
+        //Thus, the result of if that argument is there will have to have a flag passed into the search function and read by the promote function
 
-        return(); 
+        Random rng;
+        if(present == 1){
+            //there is an argument, so seed with time
+            rng = new Random(system.currentTimeMillis());
+        }
+        else{
+            long seed = 42;
+            rng = new Random(seed);
+        }
+        return ((int)(rng.nextDouble()*2));
+       //this result will tell the program if to promote or not
+       //we will promote if the value returned is equal to 1(Heads)
+       //if not, we will not promote and this is in effect(Tails) 
     }
 
-    public void delete(){
+    public void delete(int val){
+        search(val, 'd',false);
     }
 
     //Workhorse of SKipLists
     //Is called whenever an insert, delete or search needs to be done
-    public boolean search(int goal,char option ){
+    public boolean search(int goal,char option,boolean argumentPresent){
         //variable to let us know the value has or has not been found
         boolean found=false;
 
@@ -98,7 +118,19 @@ public class SkipList{
                         return found;
                     //what was found is to be deleted
                     case 'd':
-                        //need to write this
+                        if(curr.up == null){
+                            curr.left.right = curr.right;
+                            curr.right.left = curr.left;
+                        }
+                        else{
+                            while(curr.up!= null){
+                                curr.left.right = curr.right;
+                                curr.right.left = curr.left;
+                                curr = curr.up;
+                                curr.down.up = null;
+                                curr.down = null;
+                            }
+                        }
                         break;
                 }
             }
@@ -126,16 +158,57 @@ public class SkipList{
                             //////////////////////////////////////////////////////////////////////
                             case 'i':
                                 int i = 1;
+                                //Create node to be inserted and manipulate the pointers
                                 SkipNodes Node = new SkipNodes(goal,i, curr.right,curr,null, null);
-                                int p = promote();
+                                //at this point 50 is pointing to 60 and 30 but 30 is still pointing to 60 and 60 to 30
+                                curr.right.left = Node;
+                                //60 now points to 50(Node)
+                                curr.right = Node;
+                                //30 now points to 50(Node)
+                                //now we need to check to see if the insertion should be promoted
+                                //1 for Heads
+                                //0 for Tails
+                                int p = promote(argumentPresent);
                                 while(p == 1){
-
+                                    //need to take care of sentinels for new level
+                       
+                                    //update i so it can fill in the right level to the Node
                                     i++;
-                                    SkipNodes Node = new SkipNodes(goal, i, curr.up.right, curr.up,null,curr.right);
-                                    curr.right.up = Node;
-                                    curr.up.right.left = Node;
-                                    curr.up.right = Node;
-                                    //may need to use recursion?
+                                    //create node to be inserted in the next level
+                                    //right now curr is at 30 still
+                                    //NOde is at 50
+                                    //for promotions we need to move the current pointer to a node in the level above
+                                    while(curr.up==null && curr.left != null){
+                                        curr = curr.left;
+                                    }
+                                    if(curr.up == null && curr.left == null){
+                                        //it's at -inf on bottom level and there is no level above
+                                        SkipNodes leftSentinel = new SkipNodes(Integer.MIN_VALUE,i,null,null,null,curr);
+                                        SkipNodes rightSentinel = new SkipNodes(Integer.MAX_VALUE,i,null,null,null,tail);
+                                        curr.up = leftSentinel;
+                                        tail.up = rightSentinel;
+                                        leftSentinel.right = rightSentinel;
+                                        rightSentinel.left = leftSentinel;
+                                        listHeight= i;
+                                        setHead(leftSentinel);
+                                        setTail(rightSentinel);
+                                    }
+                                    curr = curr.up;       //curr is now on the level above 
+                             //////////////////////////////////////////////////////////////////////
+                            //         null              null                        null        //
+                            //          |                 |                           |          //
+                            //<------[-inf]--><---[30(curr is HERE)]-------><------[+inf]-->null //
+                            //          |                 |                          |           //
+                            //null<--[-inf]------><-----[30]--><--[50]--><--[60]-->[+inf]-->null //
+                            //         |                 |         |         |       |           //
+                            //        null             null      null       null    null         //
+                            //////////////////////////////////////////////////////////////////////
+
+                                    
+                                    SkipNodes riser = new SkipNodes(goal, i, curr.right,curr,null,Node);
+                                    curr.right.left = riser;
+                                    curr.right = riser;
+                                    Node.up = riser;
                                     p = promote();
                                 }
                                 return;
