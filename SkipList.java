@@ -17,6 +17,7 @@ public class SkipList{
     private int listHeight;      //needed to keep track of how high the list gets and also needed to know when to add new sentinels
     private SkipNodes head;      //this will be a pointer to the head of the list at all times. This will change everytime a level is added
     private SkipNodes tail;      //this is the end of the list just for fun and will stay the same
+    private int numInserts = 0;
 
     //constructor
     //when called will create a new list which will only have the sentinels and the list will look like the image below
@@ -30,7 +31,7 @@ public class SkipList{
     public SkipList(){
         listHeight = 1;                                             //the list always begins with one level
         head = new SkipNodes(Integer.MIN_VALUE,1,lastNode,null,null,null);    //the head pointer now points to the -inf sentinel
-        tail = new SkipNodes(Integer.MAX_VALUE,1,null, firstNode, null, null); //the tail pointer now points to the +inf sentinel
+        tail = new SkipNodes(100001,1,null, firstNode, null, null); //the tail pointer now points to the +inf sentinel
     }
 
     //setter for level
@@ -160,6 +161,7 @@ public class SkipList{
                                 int i = 1;
                                 //Create node to be inserted and manipulate the pointers
                                 SkipNodes Node = new SkipNodes(goal,i, curr.right,curr,null, null);
+                                numInserts++;
                                 //at this point 50 is pointing to 60 and 30 but 30 is still pointing to 60 and 60 to 30
                                 curr.right.left = Node;
                                 //60 now points to 50(Node)
@@ -228,6 +230,34 @@ public class SkipList{
     }
 
     public void printAll(){
+        //point to head...top of list
+        SkipNodes currp = head;
+        //pointing at -inf at the top
+        //must go until at the bottom -inf
+        while(currp.down !=null){
+            currp = currp.down;
+        }
+        //when it exits this loop currp.down == null...at bottom
+        //now we need to go until currp.next == null...which is the +inf at the bottom
+        while(currp.next != null){
+            if(curr.next.data == 100001 && curr.data == Integer.MIN_VALUE){
+                //list is empty
+                System.out.print("The list is empty");
+                return;
+            }
+            currp = currp.next;
+            System.out.println(currp.data + ";");
+            //two cases...either there is something above this node or there isn't
+            while(currp.up != null){
+                //there is a node above
+                SkipNodes upCurr = currp.up;
+                System.out.print(upCurr.data + ";");
+            }
+            System.out.print("\n");
+        }
+
+
+
     }
 
 }
