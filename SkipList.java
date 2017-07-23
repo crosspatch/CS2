@@ -165,6 +165,7 @@ public class SkipList{
                                 //1 for Heads
                                 //0 for Tails
                                 int p = promote(argumentPresent);
+                                System.out.println("P is now " + p);
                                 while(p == 1){
                                     //need to take care of sentinels for new level
                        
