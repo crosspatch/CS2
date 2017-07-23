@@ -21,44 +21,76 @@ public class SkipNodes{
     SkipNodes previous;
     SkipNodes up;
     SkipNodes down;
-    int level;
 
     //constructor
-    public SkipNodes(int data, int level, SkipNodes n, SkipNodes prev, SkipNodes u, SkipNodes d){
+    public SkipNodes(int data, SkipNodes next, SkipNodes previous, SkipNodes up, SkipNodes down){
         //set instance variables for Node
         this.data = data;
-        this.level = level;
-        this.next = n;
-        this.previous = prev;
-        this.up = u;
-        this.down = d;
+        this.next = next;
+        this.previous = previous;
+        this.up = up;
+        this.down = down;
+    }
+
+    ///////////////////////
+    //getters and setters//
+    ///////////////////////
+
+    ////////
+    //Data//
+    ////////
+    public void setData(int data){
+        this.data = data;
     }
 
     public int getData(){
         return data;
     }
+//------------------------------------------------//
+    ////////
+    //Next//
+    ////////
 
-    //getter for level
-    public int level(){
-        return level;
+    public void setNext(SkipNodes next){
+        this.next = next;
     }
 
-    //getter for next
     public SkipNodes getNext(){
         return next;
     }
+//------------------------------------------------//
+    ////////////
+    //Previous//
+    ////////////
 
-    //getter for prev
+    public void setPrevious(SkipNodes previous){
+        this.previous = previous;
+    }
+
     public SkipNodes getPrevious(){
         return previous;
     }
+//-----------------------------------------------//
+    //////
+    //Up//
+    //////
 
-    //getter for up
+    public void setUp(SkipNodes up){
+        this.up = up;
+    }
+
     public SkipNodes getUp(){
         return up;
     }
+//----------------------------------------------//
+    ////////
+    //Down//
+    ////////
 
-    //getter for down
+    public void setDown(SkipNodes down){
+        this.down = down;
+    }
+
     public SkipNodes getDown(){
         return down;
     }
