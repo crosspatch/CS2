@@ -40,6 +40,7 @@ public class Hw02{
                     }
  
                     int num = input.nextInt();
+                    System.out.println("The number is " + num);
                     switch(letter){
                         //options
                         case "i": mySkip.insert(num,there);
@@ -65,7 +66,7 @@ public class Hw02{
         }
     }
     public static void complexityIndicator(){
-        System.err.println("ch004919;5.0;20");
+        System.err.println("ch004919;5.0;35");
     }
 
 }
