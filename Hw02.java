@@ -28,6 +28,7 @@ public class Hw02{
             SkipList mySkip = new SkipList();
             while(input.hasNextLine()){
                 String letter = input.next();
+                System.out.println(letter);
                 if(letter.equals("i") || letter.equals("d") || letter.equals("s")){
                     boolean there = false;
                     if(args.length > 1){
@@ -38,8 +39,9 @@ public class Hw02{
                         System.out.println("With the RNG unseeded,");
                         
                     }
- 
-                    int num = input.nextInt();
+                    while(input.hasNextInt()){
+
+                        int num = input.nextInt();
                     System.out.println("The number is " + num);
                     switch(letter){
                         //options
@@ -49,6 +51,7 @@ public class Hw02{
                                   break;
                         case "s": mySkip.search(num,'s',there);
                                   break;
+                    }
                     }
                 }
                 else{
