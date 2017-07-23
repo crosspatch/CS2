@@ -30,12 +30,14 @@ public class Hw02{
                 String letter = input.next();
                 if(letter.equals("i") || letter.equals("d") || letter.equals("s")){
                     boolean there = false;
-                    if(args[1] != null){
+                    if(args.length > 1){
                         there = true;
                         System.out.println("With the RNG seeded,");
                     }
-                    else
+                    else{
                         System.out.println("With the RNG unseeded,");
+                        
+                    }
  
                     int num = input.nextInt();
                     switch(letter){
