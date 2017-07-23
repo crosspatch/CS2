@@ -256,8 +256,5 @@ public class SkipList{
 
     }
 
-    public void complexityIndicator(){
-        System.err.println("ch004919;5.0;20");
-    }
 }
 
