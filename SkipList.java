@@ -1,7 +1,7 @@
 //Actual List Class with methods
 //this is the class which will house the main method and will have the constructor for a new list as well as the methods needed to implement a working list
 
-
+import java.util.Random;
 
 public class SkipList{
 
@@ -23,8 +23,9 @@ public class SkipList{
     //////////////////////////////////////////////////////
     public SkipList(){
         listHeight = 1;                                             //the list always begins with one level
-        head = new SkipNodes(Integer.MIN_VALUE,1,lastNode,null,null,null);    //the head pointer now points to the -inf sentinel
-        tail = new SkipNodes(100001,1,null, firstNode, null, null); //the tail pointer now points to the +inf sentinel
+        head = new SkipNodes(Integer.MIN_VALUE,1,null,null,null,null);    //the head pointer now points to the -inf sentinel
+        tail = new SkipNodes(100001,1,null, head, null, null); //the tail pointer now points to the +inf sentinel
+        head.next = tail;
     }
 
     //setter for level
@@ -49,7 +50,7 @@ public class SkipList{
 
     //needs to be done when new sentinels are formed
     public void setTail(SkipNodes newLast){
-        this.tail = newLst;
+        this.tail = newLast;
     }
 
     public void insert(int value,boolean pres){
@@ -65,9 +66,9 @@ public class SkipList{
         //Thus, the result of if that argument is there will have to have a flag passed into the search function and read by the promote function
 
         Random rng;
-        if(present == 1){
+        if(present == true){
             //there is an argument, so seed with time
-            rng = new Random(system.currentTimeMillis());
+            rng = new Random(System.currentTimeMillis());
         }
         else{
             long seed = 42;
@@ -113,13 +114,13 @@ public class SkipList{
                     //what was found is to be deleted
                     case 'd':
                         if(curr.up == null){
-                            curr.left.right = curr.right;
-                            curr.right.left = curr.left;
+                            curr.previous.next = curr.next;
+                            curr.next.previous = curr.previous;
                         }
                         else{
                             while(curr.up!= null){
-                                curr.left.right = curr.right;
-                                curr.right.left = curr.left;
+                                curr.previous.next = curr.next;
+                                curr.next.previous = curr.previous;
                                 curr = curr.up;
                                 curr.down.up = null;
                                 curr.down = null;
@@ -153,12 +154,12 @@ public class SkipList{
                             case 'i':
                                 int i = 1;
                                 //Create node to be inserted and manipulate the pointers
-                                SkipNodes Node = new SkipNodes(goal,i, curr.right,curr,null, null);
+                                SkipNodes Node = new SkipNodes(goal,i, curr.next,curr,null, null);
                                 numInserts++;
                                 //at this point 50 is pointing to 60 and 30 but 30 is still pointing to 60 and 60 to 30
-                                curr.right.left = Node;
+                                curr.next.previous = Node;
                                 //60 now points to 50(Node)
-                                curr.right = Node;
+                                curr.next = Node;
                                 //30 now points to 50(Node)
                                 //now we need to check to see if the insertion should be promoted
                                 //1 for Heads
@@ -173,17 +174,17 @@ public class SkipList{
                                     //right now curr is at 30 still
                                     //NOde is at 50
                                     //for promotions we need to move the current pointer to a node in the level above
-                                    while(curr.up==null && curr.left != null){
-                                        curr = curr.left;
+                                    while(curr.up==null && curr.previous != null){
+                                        curr = curr.previous;
                                     }
-                                    if(curr.up == null && curr.left == null){
+                                    if(curr.up == null && curr.previous == null){
                                         //it's at -inf on bottom level and there is no level above
                                         SkipNodes leftSentinel = new SkipNodes(Integer.MIN_VALUE,i,null,null,null,curr);
                                         SkipNodes rightSentinel = new SkipNodes(Integer.MAX_VALUE,i,null,null,null,tail);
                                         curr.up = leftSentinel;
                                         tail.up = rightSentinel;
-                                        leftSentinel.right = rightSentinel;
-                                        rightSentinel.left = leftSentinel;
+                                        leftSentinel.next = rightSentinel;
+                                        rightSentinel.previous = leftSentinel;
                                         listHeight= i;
                                         setHead(leftSentinel);
                                         setTail(rightSentinel);
@@ -200,16 +201,16 @@ public class SkipList{
                             //////////////////////////////////////////////////////////////////////
 
                                     
-                                    SkipNodes riser = new SkipNodes(goal, i, curr.right,curr,null,Node);
-                                    curr.right.left = riser;
-                                    curr.right = riser;
+                                    SkipNodes riser = new SkipNodes(goal, i, curr.next,curr,null,Node);
+                                    curr.next.previous = riser;
+                                    curr.next = riser;
                                     Node.up = riser;
-                                    p = promote();
+                                    p = promote(argumentPresent);
                                 }
-                                return;
-                                break;
+                                return found;
+                                
                             case 's':
-                                return;   //found would be false
+                                return found;   //found would be false
                         }
                     }
                     curr = curr.down;
@@ -234,7 +235,7 @@ public class SkipList{
         //when it exits this loop currp.down == null...at bottom
         //now we need to go until currp.next == null...which is the +inf at the bottom
         while(currp.next != null){
-            if(curr.next.data == 100001 && curr.data == Integer.MIN_VALUE){
+            if(currp.next.data == 100001 && currp.data == Integer.MIN_VALUE){
                 //list is empty
                 System.out.print("The list is empty");
                 return;
