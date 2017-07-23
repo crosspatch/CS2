@@ -1,4 +1,8 @@
 //hw class    
+
+import java.io.*;
+import java.util.Scanner;
+
 public class Hw02{
 //main method
     //will house function calls and main the program based on user input
@@ -25,16 +29,16 @@ public class Hw02{
             while(input.hasNextLine()){
                 String letter = input.next();
                 if(letter.equals("i") || letter.equals("d") || letter.equals("s")){
-
+                    boolean there = false;
+                    if(args[1] != null){
+                        there = true;
+                        System.out.println("With the RNG seeded,");
+                    }
+                    else
+                        System.out.println("With the RNG unseeded,");
+ 
                     int num = input.nextInt();
                     switch(letter){
-                        boolean there = false;
-                        if(args[1] != null){
-                            there = true;
-                            System.out.println("With the RNG seeded,");
-                        }
-                        else
-                            System.out.println("With the RNG unseeded,");
                         //options
                         case "i": mySkip.insert(num,there);
                                   break;
@@ -58,5 +62,9 @@ public class Hw02{
             System.out.println("File not found");
         }
     }
+    public static void complexityIndicator(){
+        System.err.println("ch004919;5.0;20");
+    }
+
 }
         
