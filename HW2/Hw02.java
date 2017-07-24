@@ -49,7 +49,12 @@ public class Hw02{
                                   break;
                         case "d": mySkip.delete(num);
                                   break;
-                        case "s": mySkip.search(num,'s',there);
+                        case "s": SkipNodes result = mySkip.search(num);
+                                  if(result.data == num){
+                                      System.out.println(num + " found");
+                                  }
+                                  else
+                                      System.out.println(num + " NOT FOUND");
                                   break;
                     }
                     }
