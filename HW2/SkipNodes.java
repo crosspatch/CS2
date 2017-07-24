@@ -1,4 +1,5 @@
 //Nodes for Skip List
+
 //This will be the class for the individual Nodes for the list
 //IN the train analogy, this will be the individual stops on the expressway and the normal line
 //They will each have an integer in them as their data and four pointers
@@ -17,19 +18,15 @@ public class SkipNodes{
 
     //instance variables
     int data;
-    SkipNodes next;
-    SkipNodes previous;
-    SkipNodes up;
-    SkipNodes down;
+    SkipNodes next = null;
+    SkipNodes previous = null;
+    SkipNodes up = null;
+    SkipNodes down = null;
 
     //constructor
-    public SkipNodes(int data, SkipNodes next, SkipNodes previous, SkipNodes up, SkipNodes down){
+    public SkipNodes(int data){
         //set instance variables for Node
         this.data = data;
-        this.next = next;
-        this.previous = previous;
-        this.up = up;
-        this.down = down;
     }
 
     ///////////////////////
