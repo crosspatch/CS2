@@ -8,9 +8,10 @@ public class SkipList{
 
     //instance variables
     int listHeight = 0;      //needed to keep track of how high the list gets and also needed to know when to add new sentinels
-    SkipNodes head;      //this will be a pointer to the head of the list at all times. This will change everytime a level is added
-    SkipNodes tail;      //this is the end of the list just for fun and will stay the same
+    SkipNodes head = null;      //this will be a pointer to the head of the list at all times. This will change everytime a level is added
+    SkipNodes tail = null;      //this is the end of the list just for fun and will stay the same
     int numInserts = 0;
+    Random rng = new Random();
 
     //constructor
     //when called will create a new list which will only have the sentinels and the list will look like the image below
@@ -22,7 +23,9 @@ public class SkipList{
     //            null                 null             //
     //////////////////////////////////////////////////////
     public SkipList(){
-        listHeight = 1;                                             //the list always begins with one level
+       
+        
+        //the list always begins with one level
         head = new SkipNodes(Integer.MIN_VALUE);    //the head pointer now points to the -inf sentinel
                                                     //                                                 null
                                                  //                                                     |
@@ -154,16 +157,16 @@ public class SkipList{
         //if it does, seed with time,if it does not have an input, seed with 42
         //Thus, the result of if that argument is there will have to have a flag passed into the search function and read by the promote function
 
-        Random rng;
         if(present == true){
             //there is an argument, so seed with time
-            rng = new Random(System.currentTimeMillis());
+            rng.setSeed(System.currentTimeMillis());
         }
         else{
             long seed = 42;
-            rng = new Random(seed);
+            rng.setSeed(seed);
         }
-        return ((int)(rng.nextDouble()*2));
+        int res = ((int)(rng.nextDouble()*2));
+        return res;
        //this result will tell the program if to promote or not
        //we will promote if the value returned is equal to 1(Heads)
        //if not, we will not promote and this is in effect(Tails) 
