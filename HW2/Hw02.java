@@ -27,8 +27,8 @@ public class Hw02{
             //make new list
             SkipList mySkip = new SkipList();
             while(input.hasNextLine()){
-                //String letter = input.next();
-                System.out.println(letter);
+                String letter = input.next();
+                //System.out.println(letter);
                 if(letter.equals("i") || letter.equals("d") || letter.equals("s")){
                     boolean there = false;
                     if(args.length > 1){
