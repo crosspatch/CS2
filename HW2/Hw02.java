@@ -25,7 +25,7 @@ public class Hw02{
         try{
             Scanner input = new Scanner(file);
             //make new list
-            SkipList mySkip = new SkipList();
+            SkipList mySkip = null;// = new SkipList();
             while(input.hasNextLine()){
                 String letter = input.next();
                 //System.out.println(letter);
@@ -33,9 +33,11 @@ public class Hw02{
                     boolean there = false;
                     if(args.length > 1){
                         there = true;
+                        mySkip = new SkipList(42);
                         System.out.println("With the RNG seeded,");
                     }
                     else{
+                        mySkip = new SkipList(System.currentTimeMillis());
                         System.out.println("With the RNG unseeded,");
                         
                     }
