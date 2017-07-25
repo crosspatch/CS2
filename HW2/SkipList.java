@@ -11,8 +11,8 @@ public class SkipList{
     SkipNodes head = null;      //this will be a pointer to the head of the list at all times. This will change everytime a level is added
     SkipNodes tail = null;      //this is the end of the list just for fun and will stay the same
     int numInserts = 0;
-    Random rng = new Random();
 
+    Random rng;
     //constructor
     //when called will create a new list which will only have the sentinels and the list will look like the image below
     ////////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ public class SkipList{
     //             |                    |               //
     //            null                 null             //
     //////////////////////////////////////////////////////
-    public SkipList(){
+    public SkipList(long seed){
        
         
         //the list always begins with one level
@@ -32,6 +32,7 @@ public class SkipList{
         tail = new SkipNodes(Integer.MAX_VALUE); //no pointers assigned...node looks like this null<--[+inf]-->null
                                                  //                                                     |
                                                  //                                                    null  
+        rng = new Random(seed);
         //now for pointer manipulation      
         head.next = tail;
         tail.previous = head; 
@@ -157,14 +158,14 @@ public class SkipList{
         //if it does, seed with time,if it does not have an input, seed with 42
         //Thus, the result of if that argument is there will have to have a flag passed into the search function and read by the promote function
 
-        if(present == true){
+        /*if(present == true){
             //there is an argument, so seed with time
             rng.setSeed(System.currentTimeMillis());
         }
         else{
             long seed = 42;
             rng.setSeed(seed);
-        }
+        }*/
         int res = ((int)(rng.nextDouble()*2));
         return res;
        //this result will tell the program if to promote or not
